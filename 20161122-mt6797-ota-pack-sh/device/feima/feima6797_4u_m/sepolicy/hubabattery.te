@@ -1,0 +1,17 @@
+
+type hubabattery_exec , exec_type, file_type;
+type hubabattery ,domain;
+
+type huba_cm4_battery_dev, dev_type;
+
+
+init_daemon_domain(hubabattery)
+
+allow init hubabattery_exec:file {read getattr execute};
+allow init hubabattery:process transition;
+allow hubabattery hubabattery_exec:file entrypoint;
+type_transition init hubabattery_exec:process hubabattery;
+
+
+allow hubabattery huba_cm4_battery_dev:chr_file { read write ioctl open };
+allow hubamain huba_cm4_battery_dev:chr_file { read write ioctl open };

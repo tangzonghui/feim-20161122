@@ -1,0 +1,13 @@
+
+type blackbox_exec , exec_type, file_type;
+type blackbox ,domain;
+
+
+
+
+init_daemon_domain(blackbox)
+
+allow init blackbox_exec:file {read getattr execute};
+allow init blackbox:process transition;
+allow blackbox blackbox_exec:file entrypoint;
+type_transition init blackbox_exec:process blackbox;

@@ -1,0 +1,13 @@
+
+type hubagps_exec , exec_type, file_type;
+type hubagps ,domain;
+
+
+
+
+init_daemon_domain(hubagps)
+
+allow init hubagps_exec:file {read getattr execute};
+allow init hubagps:process transition;
+allow hubagps hubagps_exec:file entrypoint;
+type_transition init hubagps_exec:process hubagps;

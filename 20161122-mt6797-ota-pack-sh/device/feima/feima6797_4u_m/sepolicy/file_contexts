@@ -1,0 +1,22 @@
+
+/system/bin/hubamain u:object_r:hubamain_exec:s0
+/system/bin/hubabattery u:object_r:hubabattery_exec:s0
+/system/bin/blackbox u:object_r:blackbox_exec:s0
+/system/bin/groundudpserver u:object_r:groundudpserver_exec:s0
+/system/bin/voiceudpserver u:object_r:voiceudpserver_exec:s0
+/system/bin/gimbalserver u:object_r:gimbalserver_exec:s0
+/system/bin/hubagps u:object_r:hubagps_exec:s0
+/system/bin/hubawprod u:object_r:hubawprod_exec:s0
+
+/dev/stmvl53l0_ranging u:object_r:stmvl53l0_ranging_dev:s0
+/dev/huba_test_mode u:object_r:huba_test_mode_dev:s0
+/dev/huba_cm4_syscontrol u:object_r:huba_cm4_syscontrol_dev:s0
+/dev/huba_cm4_sonar u:object_r:huba_cm4_sonar_dev:s0
+/dev/huba_cm4_tracker u:object_r:huba_cm4_tracker_dev:s0
+/dev/huba_cm4_flow u:object_r:huba_cm4_flow_dev:s0
+/dev/huba_cm4_battery u:object_r:huba_cm4_battery_dev:s0
+
+/data/supersensor(/.*)? u:object_r:hubamain_data_file:s0
+
+/data/update.zip u:object_r:ota_data_file:s0
+/data/sec_update.zip u:object_r:ota_data_file:s0

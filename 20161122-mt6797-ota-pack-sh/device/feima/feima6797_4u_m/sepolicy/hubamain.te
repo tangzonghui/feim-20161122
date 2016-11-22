@@ -1,0 +1,145 @@
+
+type hubamain_exec , exec_type, file_type;
+type hubamain ,domain;
+
+type stmvl53l0_ranging_dev, dev_type;
+type huba_test_mode_dev, dev_type;
+type huba_cm4_syscontrol_dev, dev_type;
+type huba_cm4_sonar_dev, dev_type;
+type huba_cm4_tracker_dev, dev_type;
+type huba_cm4_flow_dev, dev_type;
+
+type hubamain_data_file, file_type, data_file_type;
+type supersensor_data_file, file_type, data_file_type;
+type ota_data_file, file_type, data_file_type;
+
+
+init_daemon_domain(hubamain)
+
+allow init fuse:dir create_dir_perms;
+allow init fuse:dir rw_dir_perms;
+allow init fuse:file create_file_perms;
+allow init fuse:file rw_file_perms;
+allow init dalvikcache_data_file:dir create_dir_perms;
+allow init dalvikcache_data_file:dir rw_dir_perms;
+allow init dalvikcache_data_file:file create_file_perms;
+allow init dalvikcache_data_file:file rw_file_perms;
+allow init dalvikcache_data_file:lnk_file {read getattr setattr unlink create};
+
+
+allow init hubamain_exec:file {read getattr execute};
+allow init hubamain:process transition;
+allow hubamain hubamain_exec:file entrypoint;
+type_transition init hubamain_exec:process hubamain;
+
+allow hubamain dumpstate:fd use;
+allow hubamain property_socket:sock_file read;
+allow hubamain proc_drop_caches:file rw_file_perms;
+allow hubamain storage_file:file rw_file_perms;
+allow hubamain storage_file:lnk_file rw_file_perms;
+allow hubamain shell_exec:file { read execute open execute_no_trans };
+allow hubamain system_file:file execute_no_trans;
+allow hubamain zygote_exec:file rx_file_perms;
+allow hubamain zygote_exec:file execute_no_trans;
+allow hubamain dalvikcache_data_file:dir create_dir_perms;
+allow hubamain dalvikcache_data_file:dir rw_dir_perms;
+allow hubamain dalvikcache_data_file:file create_file_perms;
+allow hubamain dalvikcache_data_file:file rwx_file_perms;
+allow hubamain dalvikcache_data_file:lnk_file {read getattr setattr unlink create};
+allow hubamain activity_service:service_manager find;
+allow hubamain system_server:binder { transfer call };
+allow system_server hubamain:binder { transfer call };
+
+allow servicemanager hubamain:dir search;
+allow servicemanager hubamain:file r_file_perms;
+allow servicemanager hubamain:process getattr;
+
+allow hubamain servicemanager:binder { transfer call };
+allow hubamain servicemanager:fd use;
+allow hubamain servicemanager:dir search;
+
+allow mediaserver hubamain:dir search;
+allow mediaserver hubamain:file r_file_perms;
+allow mediaserver hubamain:fd use;
+allow mediaserver hubamain:process getattr;
+allow mediaserver hubamain:binder { transfer call };
+
+allow hubamain mediaserver:binder { transfer call };
+allow hubamain mediaserver:fd use;
+allow hubamain mediaserver:dir search;
+allow hubamain mediaserver_service:service_manager find;
+
+allow hubamain surfaceflinger:binder { transfer call };
+allow hubamain surfaceflinger:fd use;
+allow hubamain surfaceflinger:dir search;
+allow hubamain surfaceflinger:file getattr;
+allow hubamain surfaceflinger:fifo_file rw_file_perms;
+allow hubamain surfaceflinger_service:service_manager find;
+
+allow surfaceflinger hubamain:dir search;
+allow surfaceflinger hubamain:file r_file_perms;
+allow surfaceflinger hubamain:process getattr;
+allow surfaceflinger hubamain:binder { transfer call };
+
+allow hubamain mnt_user_file:dir search;
+allow hubamain mnt_user_file:file r_file_perms;
+allow hubamain mnt_user_file:lnk_file r_file_perms;
+
+allow hubamain cache_file:dir { open read write add_name create remove_name };
+allow hubamain cache_file:file { create open write ioctl setattr };
+
+allow hubamain system_data_file:dir create_dir_perms;
+allow hubamain system_data_file:dir rw_dir_perms;
+allow hubamain system_data_file:file create_file_perms;
+allow hubamain system_data_file:file rw_file_perms;
+allow hubamain hubamain_data_file:dir create_dir_perms;
+allow hubamain hubamain_data_file:dir rw_dir_perms;
+allow hubamain hubamain_data_file:sock_file { read write create getattr setattr };
+allow hubamain hubamain_data_file:file create_file_perms;
+allow hubamain hubamain_data_file:file rw_file_perms;
+
+allow hubamain fuse:dir create_dir_perms;
+allow hubamain fuse:file create_file_perms;
+allow hubamain ttyMT_device:chr_file { open read write ioctl };
+allow hubamain stmvl53l0_ranging_dev:chr_file { read write ioctl open };
+allow hubamain huba_test_mode_dev:chr_file { read write ioctl open };
+allow hubamain huba_cm4_syscontrol_dev:chr_file { read write ioctl open };
+allow hubamain huba_cm4_sonar_dev:chr_file { read write ioctl open };
+allow hubamain huba_cm4_tracker_dev:chr_file { read write ioctl open };
+allow hubamain huba_cm4_flow_dev:chr_file { read write ioctl open };
+
+allow hubamain audio_device:dir search;
+allow hubamain audio_device:chr_file { read write ioctl open };
+allow hubamain self:tcp_socket { create read write connect getattr getopt setopt accept listen bind name_connect name_bind };
+allow hubamain self:udp_socket { create read write getattr getopt setopt name_bind bind };
+allow hubamain self:capability { chown dac_override fowner net_bind_service net_raw fsetid };
+allow hubamain port:tcp_socket { name_bind name_connect };
+allow hubamain port:udp_socket { name_bind };
+allow hubamain node:tcp_socket node_bind;
+allow hubamain node:udp_socket node_bind;
+allow hubamain fwmarkd_socket:sock_file write;
+allow hubamain netd:unix_stream_socket connectto;
+allow netd hubamain:fd use;
+allow netd hubamain:udp_socket { read write setopt getopt };
+allow netd hubamain:tcp_socket { read write setopt getopt };
+
+allow hubamain kernel:dir { search getattr };
+allow hubamain init:dir { search getattr };
+allow hubamain dnsproxyd_socket:sock_file write;
+
+allow hubamain huba_test_mode_dev:chr_file { read write ioctl open };
+
+allow system_app system_data_file:dir { write search create rmdir add_name remove_name read open rename};
+allow system_app system_data_file:file { write read create open rename unlink getattr setattr append};
+allow system_app ota_data_file:dir { write search create rmdir add_name remove_name read open rename};
+allow system_app ota_data_file:file { write read create open rename unlink getattr setattr append};
+allow uncrypt system_data_file:file r_file_perms;
+
+allow platform_app huba_test_mode_dev:chr_file { read write ioctl open };
+allow platform_app platform_app_data_file:file rwx_file_perms;
+allow platform_app ota_data_file:dir { write search create rmdir add_name remove_name read open rename};
+allow platform_app ota_data_file:file { write read create open rename unlink getattr setattr append};
+allow platform_app cache_file:dir create_dir_perms;
+allow platform_app cache_file:dir rw_dir_perms;
+allow platform_app cache_file:file create_file_perms;
+allow platform_app cache_file:file rw_file_perms;

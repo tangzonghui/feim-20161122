@@ -1,0 +1,15 @@
+
+
+type gimbalserver_exec , exec_type, file_type;
+type gimbalserver ,domain;
+
+
+
+init_daemon_domain(gimbalserver)
+
+
+allow init gimbalserver_exec:file {read getattr execute};
+allow init gimbalserver:process transition;
+allow gimbalserver gimbalserver_exec:file entrypoint;
+type_transition init gimbalserver_exec : process gimbalserver;
+

@@ -1,0 +1,15 @@
+
+
+type voiceudpserver_exec , exec_type, file_type;
+type voiceudpserver ,domain;
+
+
+
+init_daemon_domain(voiceudpserver)
+
+
+allow init voiceudpserver_exec:file {read getattr execute};
+allow init voiceudpserver:process transition;
+allow voiceudpserver voiceudpserver_exec:file entrypoint;
+type_transition init voiceudpserver_exec:process voiceudpserver;
+

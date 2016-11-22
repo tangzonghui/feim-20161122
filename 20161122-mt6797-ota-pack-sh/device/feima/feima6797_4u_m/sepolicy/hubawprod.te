@@ -1,0 +1,13 @@
+
+type hubawprod_exec , exec_type, file_type;
+type hubawprod ,domain;
+
+
+
+
+init_daemon_domain(hubawprod)
+
+allow init hubawprod_exec:file {read getattr execute};
+allow init hubawprod:process transition;
+allow hubawprod hubawprod_exec:file entrypoint;
+type_transition init hubawprod_exec:process hubawprod;

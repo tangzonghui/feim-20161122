@@ -1,0 +1,15 @@
+
+
+type groundudpserver_exec, exec_type, file_type;
+type groundudpserver, domain;
+
+
+
+init_daemon_domain(groundudpserver)
+
+
+allow init groundudpserver_exec:file {read getattr execute};
+allow init groundudpserver:process transition;
+allow groundudpserver groundudpserver_exec:file entrypoint;
+type_transition init groundudpserver_exec : process groundudpserver;
+
